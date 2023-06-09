@@ -14,6 +14,8 @@
 
 import requests
 from bs4 import BeautifulSoup
+from googleapiclient.discovery import build
+from hades import cerberus
 
 # get_channel_id v.2.1 (Safe version)
 def get_channel_id(URL=None) -> str:
@@ -59,11 +61,15 @@ def get_channel_id(URL=None) -> str:
     
     # v.2.1
     response = requests.get(URL)
+
+    if response == "<Response [404]>":
+        return "Error 404"
+    
     html = response.text
     
     for i in range(7):
 
-        # v.2
+        # v.2 -- Deactivated
         # response = requests.get(URL)
         # html = response.text
 
@@ -79,10 +85,48 @@ def get_channel_id(URL=None) -> str:
         
     return "Error 404"
 
+class Service:
+    def __init__(self, serviceName, version, developerKey=None):
+        self.serviceName = serviceName
+        self.version = version
+        self.developerKey = developerKey
+
+    def build_service(self):
+        if self.developerKey == None:
+            return None
+
+        service = build(self.serviceName, self.version, developerKey=self.developerKey)
+        return service
+
+def get_channel_details(service, channel_id=None):
+    if channel_id is None:
+        return "[Error]. You must provide a YouTube channel's ID."
+    
+    try:
+        response = service.channels().list(
+            part='snippet, brandingSettings, statistics, contentDetails',
+            id=channel_id
+        ).execute()
+
+        return (
+                response['items'][0]['snippet']['title'], # YouTube channel's name
+                response['items'][0]['snippet']['thumbnails']['default']['url'], # YouTube channel's profile pic URL 
+                response['items'][0]['brandingSettings']['image']['bannerExternalUrl'], # YouTube channel's banner URL
+                response['items'][0]['snippet']['description'], # YouTube channel's description
+                response['items'][0]['snippet']['country'], # YouTube channel's country of origin 
+                response['items'][0]['snippet']['publishedAt'], # YouTube channel's creation date 
+                int(response['items'][0]['statistics']['viewCount']), # YouTube channel's total views
+                int(response['items'][0]['statistics']['videoCount']), #YouTube channel's total amount of videos
+                int(response['items'][0]['statistics']['subscriberCount']) # YouTube channel's aprox. amount of subs.
+            )
+
+    except Exception as error:
+        return f"[Error]. {error}"
+
 # ARCHIVE
 
 """
-    get_channel_id v.1 (Safe version) [Depracted - OBSOLETE]
+    get_channel_id v.1 (Safe version) [Depracated - OBSOLETE]
 
     def get_channel_id(URL=None):
         if URL is None:

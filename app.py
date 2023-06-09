@@ -13,7 +13,11 @@
 #===================================================================#
 
 from flask import Flask, render_template, request
-from risette_core import get_channel_id
+from risette_core import get_channel_id, Service, get_channel_details
+from hades import cerberus
+
+#Replace cerberus with your API key
+youtube = Service('youtube', 'v3', cerberus).build_service()
 
 app = Flask(__name__)
 
@@ -25,16 +29,16 @@ def index():
 @app.route("/analysisResult", methods=["POST"])
 def result():
     URL = request.form["channel_url"]
-    #print(URL)
-
+    
     channel_id = get_channel_id(URL)
-    print(channel_id)
 
     if channel_id == "Error 404":
         error_message = "Error 404. YouTube channel not found"
         return render_template('index.html', error_message=error_message)
     
-    return render_template('result.html', URL=URL, channel_id=channel_id)
+    channelAbout = get_channel_details(youtube, get_channel_id(URL))
+    print(type(channelAbout))
+    return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelAbout)
 
 if __name__ == '__main__':
     app.run()
