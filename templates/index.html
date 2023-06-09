@@ -1,2 +1,59 @@
-<title>Initial commit</title>
-<h1>Initial commit</h1>
+<!--
+
+    Homepage
+
+    Arturo Olivares
+
+    Copyright (C) 2023 Arturo Olivares
+    GNU GPLv3
+    
+-->
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Risette.py</title>
+{% endblock %}
+
+
+{% block body %}
+    <header class="col-xs-12 well col-sm-12 well col-md-12 well header">
+        <button type="button" class="btn btn-default">
+            <i class="fa fa-moon-o" aria-hidden="true"></i>
+        </button>
+    </header>
+    <div class="col-xs-12 well col-sm-12 well col-md-12 well main">
+        <div class="main-logo">
+            <img src="static/assets/imgs/risettePy_logo.svg" alt="Risette.py Logo" id="main-logo">
+        </div>
+        <form class="form" method="POST" action="{{ url_for('result') }}">
+            <input type="text" id="searchbar" name="channel_url" placeholder="Enter YouTube channel link..." value="">
+            <button type="submit" class="form-submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+        <script type="text/python" src="/static/scripts/urlVerifier.py"></script>
+        {% if error_message %}
+        <script> alert("{{ error_message }}"); </script>
+        {% endif %}
+    </div>
+    <footer class="col-xs-12 well col-sm-12 well col-md-12 well footer">
+        <div class="col-xs-12 well col-sm-12 well col-md-12 well footer-col top-panel">
+            <div class="footer-logo">
+                <img src="/static/assets/imgs/risettePy_logo_white.svg"/>
+            </div>
+        </div>
+        <div class="col-xs-12 well col-sm-12 well col-md-12 well footer-col bottom-panel">
+            <div class="col-xs-12 well col-sm-12 well col-md-12 well footer-col top">
+                <h4>Powered by</h4>
+                <div class="footer-logo">
+                    <img src="/static/assets/imgs/YouTube-White-Logo.wine.svg"/>
+                </div>
+            </div>
+            <div class="col-xs-12 well col-sm-12 well col-md-12 well footer-col bottom">
+                <span style="flex-grow: 1;">Copyright &copy; 2023 Arturo Olivares. All rights reserved.</span>
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

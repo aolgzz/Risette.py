@@ -1,0 +1,311 @@
+/*
+ *
+ *   Stylesheet
+ *    index.css Pre-alpha version
+ *
+ *    Arturo Olivares
+ *
+ *    Copyright (C) 2023 Arturo Olivares
+ *    GNU GPLv3
+ *
+**/
+
+* {
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url(/static/assets/imgs/light_theme_background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.header{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.header button {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.main{
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.main-logo{
+    width: 30%;
+    margin-top: 10vh;   
+}
+
+.form{
+    border: 1px solid white;
+    margin-top: 2vh;
+    border-radius: 30px;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    background: white;
+    height: 5vh;
+}
+
+.form input{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    width: 90%;
+    font-size: large;
+    padding-left: 1vw;
+    border: 1px solid white;
+    outline: none;
+}
+
+.form button{
+    height: 100%;
+    width: 5%;
+    border: none;
+    background: white;
+}
+
+.form-submit:hover{
+    background: rgba(184, 178, 178, 0.5);
+}
+
+.footer{
+    background: #131E3A;
+    border-radius: 1px;
+    border: 1px solid #131E3A;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.footer-col{
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    margin: 0;
+}
+
+.top-panel{
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding-bottom: 0;
+}
+
+.footer-logo{
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    width: 10%;
+}
+
+
+.bottom-panel  .footer-col.top{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+.bottom-panel{
+    padding: 0;
+}
+
+.footer-col.bottom{
+    display: flex;
+    align-items: center;
+}
+
+
+h4{
+    color: white;
+}
+
+.footer-col.bottom span{
+    font-size: smaller;
+    font-family: 'Arial Narrow', sans-serif;
+    color: white;
+}
+
+.footer-col.bottom i{
+    font-size: x-large;
+}
+
+.fa.fa-file-code-o{
+    margin-right: 1%;
+    margin-left: 0.5%;
+    color: white;
+}
+
+.fa.fa-github{
+    color: white;
+}
+
+@media only screen and (max-width: 390px){
+    .header button{
+        width: 2em;
+        height: 2em;
+        font-size: 1em;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 599px) {            
+    .main-logo{
+        width: 80%;
+        margin-top: 10vh;   
+    }
+    
+    .form{
+        width: 100%;
+    }
+    
+    .form input{
+        width: 85%;
+        font-size: xx-small;
+    }
+    
+    .form button{
+        font-size: xx-small;
+        width: 10%;
+    }
+
+    h4{
+        font-size: smaller;
+        margin-bottom: 0;
+    }
+    
+    .footer-logo{
+        width: 30%;
+    }
+        
+    .footer-col.bottom span{
+        font-size: 7px;
+    }
+    
+    .footer-col.bottom i{
+        font-size: large;
+    }
+    
+    .fa.fa-file-code-o{
+        margin-left: 3%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {        
+    .main-logo{
+        width: 70%;
+        margin-top: 10vh;   
+    }
+    
+    .form{
+        width: 90%;
+    }
+    
+    .form input{
+        font-size: large;
+    }
+    
+    .form button{
+        font-size: medium;
+    }
+
+    h4{
+        font-size: medium;
+    }
+    
+    .footer-logo{
+        width: 30%;
+    }
+        
+    .footer-col.bottom span{
+        font-size: small;
+    }
+    
+    .footer-col.bottom i{
+        font-size: x-large;
+    }
+    
+    .fa.fa-file-code-o{
+        margin-left: 3%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .main-logo{
+        width: 50%;
+        margin-top: 10vh;   
+    }
+    
+    .form{
+        width: 70%;
+    }
+    
+    .footer-col.bottom i{
+        font-size: xx-large;
+    }
+    
+    .fa.fa-file-code-o{
+        margin-left: 3%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .fa.fa-file-code-o{
+        margin-left: 2%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .main-logo{
+        width: 30%;
+    }
+
+    .form{
+        width: 40%;
+    }
+
+    .fa.fa-file-code-o{
+        margin-left: 1%;
+    }
+
+    h4{
+        font-size: larger;
+    }
+
+    .footer-logo{
+        width: 10%;
+    }
+} 
