@@ -9,11 +9,66 @@
     
 -->
 
-<h1>result.html</h1>
-<p>{{ URL }}</p>
-<p> {{ channel_id }}</p>
+{% extends 'base.html' %}
 
-<h1>Channel Details</h1>
+{% block head %}
+    <script type="text/python" src="/static/scripts/countries.py"></script>
+    <link rel="stylesheet" href="/static/css/result.css">
+    <title>Risette.py Analysis</title>
+{% endblock %}
+
+{% block body %}
+    
+    <main class="col-xs-12 well col-sm-12 well col-md-12 well main">
+        <div class="col-xs-2 well col-sm-2 well col-md-2 well left-col">
+            2 Col
+        </div>
+        <div class="col-xs-8 well col-sm-8 well col-md-8 well right-col">
+            <div class="col-xs-12 well col-sm-6 well col-md-6 well right-subcol">
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row">
+                    <h4>{{ channelDetails[0] }}</h4>
+                    <span>{{ "{:,}".format(channelDetails[7]) }} videos</span>
+                </div>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row" id="header-imgs-div">
+                    <div class="col-xs-12 well col-sm-12 well col-md-12 well" id="banner-div"
+                    style="background-image: url('{{ channelDetails[2] }}');"></div>
+                    <div class="col-xs-12 well col-sm-12 well col-md-12 well" id="pfp-div">
+                        <img class="ui medium circular image" id="pfp" src="{{ channelDetails[1] }}">
+                    </div>
+                </div>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row">
+                    <h3 id="channel-name">{{ channelDetails[0] }}</h3>
+                    <p> ID: {{ channel_id }} </p>
+                    <p style="text-align: justify;">
+                        {{ channelDetails[3] }}
+                    </p>
+                    <div class="ui medium breadcrumb" id="details-row">
+                        <i class="map marker alternate icon"></i>
+                        <span id="flag"></span>
+                        <span class="section" id="country"> {{ channelDetails[4] }} </span>
+                        <i class="calendar alternate outline icon"></i>
+                        <span>{{ creationDate }}</span>                        
+                        <i class="linkify icon"></i>
+                        <a class="section" href="{{ URL }}">YouTube</a>
+                    </div>
+                    <div class="ui breadcrumb" id="details-row">
+                        <span><b>{{ "{:,}".format(channelDetails[6]) }}</b> views</span>
+                        <span><b>{{ "{:,}".format(channelDetails[8]) }}</b> subscribers</span> 
+                    </div>
+                </div>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row">
+                    12 Col
+                </div>
+            </div>
+            <div class="col-xs-12 well col-sm-6 well col-md-6 well left-subcol">
+                6 Col
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+<!--
 
 <p>Channel Name: {{ channelDetails[0] }}</p>
 <p>Profile Image URL: {{ channelDetails[1] }}</p>
@@ -24,3 +79,5 @@
 <p>Total Views: {{ channelDetails[6] }}</p>
 <p>Total Videos: {{ channelDetails[7] }}</p>
 <p>Total Subscribers: {{ channelDetails[8] }}</p>
+
+-->

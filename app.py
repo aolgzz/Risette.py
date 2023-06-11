@@ -13,7 +13,7 @@
 #===================================================================#
 
 from flask import Flask, render_template, request
-from risette_core import get_channel_id, Service, get_channel_details
+from risette_core import get_channel_id, Service, get_channel_details, iso8601_to_prettydate
 from hades import cerberus
 
 #Replace cerberus with your API key
@@ -36,11 +36,20 @@ def result():
         error_message = "Error 404. YouTube channel not found"
         return render_template('index.html', error_message=error_message)
     
+    #API disconnected mode: OFF
+    #"""
+    
     channelAbout = get_channel_details(youtube, get_channel_id(URL))
-    print(type(channelAbout))
-    return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelAbout)
+    creationDate = iso8601_to_prettydate(channelAbout[5])
+    
+    return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelAbout, creationDate=creationDate)
+    
+    #"""
+
+    # API disconnected mode: ON
+    #return render_template('result.html', URL=URL, channel_id=channel_id)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
 

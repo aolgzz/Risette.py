@@ -1,0 +1,121 @@
+/*
+ *
+ *   Stylesheet
+ *    result.css Pre-alpha version
+ *
+ *    Arturo Olivares
+ *
+ *    Copyright (C) 2023 Arturo Olivares
+ *    GNU GPLv3
+ *
+**/
+
+body{
+    border: 1px solid red;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.main{
+    border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    padding: 5vh 0 2.5vh 0;
+}
+
+
+.right-col{
+    padding: 0;
+    overflow-x: scroll;
+    height: 80vh;
+}
+
+.right-subcol, .left-subcol{
+    margin: 0;
+}
+
+.right-subcol{
+    padding: 0;
+    overflow-x: scroll;
+}
+
+.right-subcol-row{
+    margin-bottom: 0;
+}
+
+
+#header-imgs-div{
+    padding: 0;
+    border: 1px solid red;
+    margin-bottom: 10vh;
+}
+
+#banner-div, #pfp-div{
+    margin: 0;
+    padding: 0;
+}
+
+#banner-div{
+    height: 25vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+#pfp-div{
+    position: absolute;
+    top: 65%;
+    background: transparent;
+}
+
+#pfp{
+    border: 1px solid red;
+    width: 25%;
+    margin: 0;
+    margin-left: 2%;
+}
+
+#channel-name{
+    margin-bottom: 0;
+}
+
+#details-row{
+    border: 1px solid red;
+    padding: 0;
+}
+
+/* .mid-col{
+    border: 1px solid red;
+    padding: 0;
+}
+
+    .mid-row{
+        margin-bottom: 0;
+    }
+
+#header-imgs{
+    border: 1px solid blue;
+    padding: 0;
+}
+
+#banner-div{
+    height: 25vh;
+}
+
+#pfp-div{
+    border: 1px solid green;
+    position: absolute;
+    top: 70%;
+}
+
+
+
+    #header-imgs div{
+        padding: 0;
+    }
+
+    #pfp{
+        width: 10%;
+    } */

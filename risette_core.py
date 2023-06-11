@@ -16,6 +16,7 @@ import requests
 from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
 from hades import cerberus
+from datetime import datetime
 
 # get_channel_id v.2.1 (Safe version)
 def get_channel_id(URL=None) -> str:
@@ -85,6 +86,7 @@ def get_channel_id(URL=None) -> str:
         
     return "Error 404"
 
+
 class Service:
     def __init__(self, serviceName, version, developerKey=None):
         self.serviceName = serviceName
@@ -122,6 +124,24 @@ def get_channel_details(service, channel_id=None):
 
     except Exception as error:
         return f"[Error]. {error}"
+
+
+def iso8601_to_prettydate(date: str) -> str:
+    """
+    Converts a string date in ISO 8601 format into a more readable format.
+
+    Args:
+        date (str): ISO 8601-date string ('YYYY-MM-DDTHH:MM:SSZ').
+    
+    Returns:
+        str: Date string in the following format ('Month DD, YYYY')
+
+    Example:
+    >>> iso8601_to_prettydate('2009-04-30T19:37:51Z')
+    'April 30, 2009'
+    """
+
+    return datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
 
 # ARCHIVE
 
