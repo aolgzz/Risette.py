@@ -12,6 +12,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+    <script src="/static/scripts/renderer.js"></script>
     <script type="text/python" src="/static/scripts/countries.py"></script>
     <link rel="stylesheet" href="/static/css/result.css">
     <title>Risette.py Analysis</title>
@@ -36,7 +37,7 @@
                         <img class="ui medium circular image" id="pfp" src="{{ channelDetails[1] }}">
                     </div>
                 </div>
-                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row">
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row" id="details-panel">
                     <h3 id="channel-name">{{ channelDetails[0] }}</h3>
                     <p> ID: {{ channel_id }} </p>
                     <p style="text-align: justify;">
@@ -56,12 +57,36 @@
                         <span><b>{{ "{:,}".format(channelDetails[8]) }}</b> subscribers</span> 
                     </div>
                 </div>
-                <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row">
-                    12 Col
-                </div>
             </div>
             <div class="col-xs-12 well col-sm-6 well col-md-6 well left-subcol">
-                6 Col
+                <h3 style="text-align: center;">Latest video</h3>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well video-panel">
+                    <div id="player1" class="video-player"></div>
+                    <div class="video-description">
+                        <h5>{{ relVids['video1'][0] }}</h5>
+                        <p>{{ relVids['video1'][1] }}</p>
+                    </div>
+                    <p id="latest-video" hidden>{{ relVidsIDs[0] }}</p>
+                </div> 
+                <h3 style="text-align: center;">Most viewed video</h3>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well video-panel">
+                    <div id="player2" class="video-player"></div>
+                    <div class="video-description">
+                        <h5>{{ relVids['video2'][0] }}</h5>
+                        <p>{{ relVids['video2'][1] }}</p>
+                    </div>
+                    <p id="popular-video" hidden>{{ relVidsIDs[1] }}</p>
+                </div>
+                <h3 style="text-align: center;">Oldest video</h3>
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well video-panel">
+                    <div id="player3" class="video-player"></div>
+                    <div class="video-description">
+                        <h5>{{ relVids['video3'][0] }}</h5>
+                        <p>{{ relVids['video3'][1] }}</p>
+                    </div>
+                    <p id="oldest-video" hidden>{{ relVidsIDs[2] }}</p>
+                </div> 
+            </div>
             </div>
         </div>
     </main>

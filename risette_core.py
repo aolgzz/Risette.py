@@ -15,11 +15,10 @@
 import requests
 from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
-from hades import cerberus
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # get_channel_id v.2.1 (Safe version)
-def get_channel_id(URL=None) -> str:
+def get_channel_id(URL: str = None) -> str:
     """
     Gets the ID of a YouTube channel from its URL.
 
@@ -88,7 +87,7 @@ def get_channel_id(URL=None) -> str:
 
 
 class Service:
-    def __init__(self, serviceName, version, developerKey=None):
+    def __init__(self, serviceName: str, version: str, developerKey=None):
         self.serviceName = serviceName
         self.version = version
         self.developerKey = developerKey
@@ -100,14 +99,14 @@ class Service:
         service = build(self.serviceName, self.version, developerKey=self.developerKey)
         return service
 
-def get_channel_details(service, channel_id=None):
-    if channel_id is None:
+def get_channel_details(service: str, channelID: str = None) -> (tuple | str):
+    if channelID is None:
         return "[Error]. You must provide a YouTube channel's ID."
     
     try:
         response = service.channels().list(
             part='snippet, brandingSettings, statistics, contentDetails',
-            id=channel_id
+            id=channelID
         ).execute()
 
         return (
@@ -125,6 +124,7 @@ def get_channel_details(service, channel_id=None):
     except Exception as error:
         return f"[Error]. {error}"
 
+    #youtube = Service('youtube', 'v3', cerberus).build_service()
 
 def iso8601_to_prettydate(date: str) -> str:
     """
@@ -142,6 +142,87 @@ def iso8601_to_prettydate(date: str) -> str:
     """
 
     return datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
+
+
+def get_relevant_vids(service, channel_id=None):
+    if channel_id is None:
+        return None
+
+    try:
+        # Fetch the latest YT channel's video ID
+        response = service.search().list(
+            part='id',
+            channelId=channel_id,
+            order='date',
+            type='video'
+        ).execute()
+        latest_video_id = response['items'][0]['id']['videoId']
+
+        # Fetch the most popular YT channel's video ID
+        response = service.search().list(
+            part='id',
+            channelId=channel_id,
+            order='viewCount',
+            type='video'
+        ).execute()
+        most_viewed_video_id = response['items'][0]['id']['videoId']
+
+        # Fetch the oldest YT channel's video ID
+        response = service.channels().list(
+            part='snippet',
+            id=channel_id
+        ).execute()
+        channel_created_at = datetime.fromisoformat(response['items'][0]['snippet']['publishedAt'])
+
+        # Find channel videos posted after the creation date
+        published_before = channel_created_at + timedelta(days=365)  # Agregar un año
+        search_response = service.search().list(
+            part='id',
+            channelId=channel_id,
+            publishedAfter=channel_created_at.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            publishedBefore=published_before.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            type='video'
+        ).execute()
+
+        while len(search_response['items']) == 0:
+            channel_created_at = published_before
+            published_before = channel_created_at + timedelta(days=365)  # Agregar un año
+            search_response = service.search().list(
+                part='id',
+                channelId=channel_id,
+                publishedAfter=channel_created_at.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                publishedBefore=published_before.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                type='video'
+            ).execute()
+
+        oldest_video_id = search_response['items'][0]['id']['videoId']
+
+        return (latest_video_id, most_viewed_video_id, oldest_video_id)
+
+    except Exception as error:
+        return error
+
+
+def getVideoDetails(service, video_id):
+    request = service.videos().list(
+        part='snippet,statistics,contentDetails',
+        id=video_id
+    )
+    response = request.execute()
+
+    video_details = response['items'][0]
+    title = video_details['snippet']['title']
+    description = video_details['snippet']['description']
+    views = int(video_details['statistics']['viewCount'])
+    likes = int(video_details['statistics']['likeCount'])
+    
+    # Note: The statistics.dislikeCount property was made private as of December 13, 2021. 
+    # This means that the property is included in an API response only if the API request was 
+    # authenticated by the video owner. See the revision history for more information.
+
+    #dislikes = int(video_details['statistics']['dislikeCount'])
+
+    return (title, description, views, likes)
 
 # ARCHIVE
 

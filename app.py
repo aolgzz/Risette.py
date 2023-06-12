@@ -14,6 +14,7 @@
 
 from flask import Flask, render_template, request
 from risette_core import get_channel_id, Service, get_channel_details, iso8601_to_prettydate
+from risette_core import get_relevant_vids, getVideoDetails
 from hades import cerberus
 
 #Replace cerberus with your API key
@@ -41,15 +42,29 @@ def result():
     
     channelAbout = get_channel_details(youtube, get_channel_id(URL))
     creationDate = iso8601_to_prettydate(channelAbout[5])
-    
-    return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelAbout, creationDate=creationDate)
-    
+
+    relVidsIDs = get_relevant_vids(youtube, channel_id)
+    relVidsInfo = {}
+
+    for i, videoID in enumerate(relVidsIDs, start=1):
+        videoData = getVideoDetails(youtube, videoID)
+        relVidsInfo[f"video{i}"] = videoData
+
+    return render_template('result.html', 
+                           URL=URL, 
+                           channel_id=channel_id, 
+                           channelDetails=channelAbout, 
+                           creationDate=creationDate,
+                           relVidsIDs=relVidsIDs,
+                           relVids=relVidsInfo
+                        )
     #"""
 
     # API disconnected mode: ON
-    #return render_template('result.html', URL=URL, channel_id=channel_id)
+    #channelDetails = (1, 2, 3, 4, 5, 6, 7, 8, 10)
+    #return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelDetails, relevantVideos=relVids)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
