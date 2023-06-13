@@ -10,26 +10,64 @@
  *
 **/
 
+@font-face {
+    font-family: 'fot-chiaro-std';
+    src: url('/static/assets/fonts/FOTChiaroStd.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'fot-chiaro-std', sans-serif;
+}
+
 body{
-    border: 1px solid red;
     width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
+    background-image: url(/static/assets/imgs/light_theme_background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .main{
-    border: 1px solid green;
+    border: none;
+    box-shadow: none;
+    background: transparent;
     display: flex;
     justify-content: center;
     padding: 5vh 0 2.5vh 0;
 }
 
+.left-col{
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7px);
+    border-right: none;
+    box-shadow: none;
+}
 
 .right-col{
     padding: 0;
     overflow-x: scroll;
     height: 80vh;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7px);
+    border-left: none;
+    box-shadow: none;
+}
+
+.left-subcol{
+    border: none;
+    background: transparent;
+    box-shadow: none;
 }
 
 .right-subcol, .left-subcol{
@@ -39,17 +77,29 @@ body{
 .right-subcol{
     padding: 0;
     overflow-x: scroll;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .right-subcol-row{
     margin-bottom: 0;
+    padding: 1%;
+    border-radius: 1px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
 }
 
+.right-subcol-row h4{
+    margin-bottom: 0;
+}
 
 #header-imgs-div{
     padding: 0;
-    border: 1px solid red;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     margin-bottom: 8vh;
+    border-radius: 5px;
 }
 
 #banner-div, #pfp-div{
@@ -68,10 +118,13 @@ body{
     position: absolute;
     top: 65%;
     background: transparent;
+    border: none;
+    box-shadow: none;
+    background: transparent;
 }
 
 #pfp{
-    border: 1px solid red;
+    border: 2px solid white;
     width: 25%;
     margin: 0;
     margin-left: 2%;
@@ -82,27 +135,51 @@ body{
 }
 
 #details-panel{
-    border: 1px solid blue;
+    border: 1px solid rgba(255, 255, 255, 0.7);
     display: flex;
     flex-direction: column;
+    background: rgba(173, 216, 230, 0.5);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: none;
+    padding: 2%;
 }
 
 #details-row{
-    border: 1px solid red;
     margin-bottom: 1%;
     padding: 0;
+    background: transparent;
+}
+
+#dataframes{
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-top: none;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    background: rgba(173, 216, 230, 0.5);
+    box-shadow: none;
 }
 
 .video-panel{
-    border: 1px solid blue;
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 5px;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-bottom: none;
     display: flex;
     flex-direction: row;
     height: 25vh;
+    margin-bottom: 0;
+    background: rgba(37, 150, 190, 0.5);
+}
+
+#player1, #player2, #player3{
+    border-radius: 5px;
 }
 
 .video-description{
-    border: 1px solid green;
+    border: none;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,7 +188,9 @@ body{
 }
 
 .video-description h5, .video-description p{
-    border: 1px solid red;
+    border: none;
+    box-shadow: none;
+    color: white;
     padding: 2%;
 }
 
@@ -123,4 +202,19 @@ body{
     font-size: xx-small;
     overflow: hidden;
     text-align: justify;
+}
+
+.audience-panel{
+    background: rgba(255, 255, 255, 0.4);
+    border-top: none;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    padding: 1%;
+    display: flex;
+    justify-content: end;
+    padding-right: 5%;
+}
+
+.audience-panel i{
+    margin-left: 2%;
 }

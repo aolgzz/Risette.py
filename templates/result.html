@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="col-xs-12 well col-sm-12 well col-md-12 well right-subcol-row" id="details-panel">
-                    <h3 id="channel-name">{{ channelDetails[0] }}</h3>
-                    <p> ID: {{ channel_id }} </p>
+                    <h2 id="channel-name">{{ channelDetails[0] }}</h2>
+                    <p> ID: <i>{{ channel_id }}</i></p>
                     <p style="text-align: justify;">
                         {{ channelDetails[3] }}
                     </p>
@@ -50,7 +50,7 @@
                         <span id="flag"></span>
                         <span class="section" id="country"> {{ channelDetails[4] }} </span>
                         <i class="calendar alternate outline icon"></i>
-                        <span>{{ creationDate }}</span>                        
+                        <span>Joined {{ creationDate }}</span>                        
                         <i class="linkify icon"></i>
                         <a class="section" href="{{ URL }}">YouTube</a>
                     </div>
@@ -76,11 +76,11 @@
                     </div>
                     <p id="latest-video" hidden>{{ relVidsIDs[0] }}</p>
                 </div> 
-                <div class="col-xs-12 well col-sm-12 well col-md-12 well">
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well audience-panel">
                     <i class="eye icon"></i>
-                    {{ relVids['video1'][2] }}
-                    <i class="thumbs up outline icon"></i> 
-                    {{ relVids['video1'][3] }}
+                    <span>{{ "{:,}".format(relVids['video1'][2]) }}</span>
+                    <i class="thumbs up outline icon"></i>
+                    <span>{{ "{:,}".format(relVids['video1'][3]) }}</span>
                 </div>
                 <h3 style="text-align: center;">Most viewed video</h3>
                 <div class="col-xs-12 well col-sm-12 well col-md-12 well video-panel">
@@ -91,11 +91,11 @@
                     </div>
                     <p id="popular-video" hidden>{{ relVidsIDs[1] }}</p>
                 </div>
-                <div class="col-xs-12 well col-sm-12 well col-md-12 well">
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well audience-panel">
                     <i class="eye icon"></i>
-                    {{ relVids['video2'][2] }}
-                    <i class="thumbs up outline icon"></i> 
-                    {{ relVids['video2'][3] }}
+                    <span>{{ "{:,}".format(relVids['video2'][2]) }}</span>
+                    <i class="thumbs up outline icon"></i>
+                    <span>{{ "{:,}".format(relVids['video2'][3]) }}</span>
                 </div>
                 <h3 style="text-align: center;">Oldest video</h3>
                 <div class="col-xs-12 well col-sm-12 well col-md-12 well video-panel">
@@ -106,11 +106,11 @@
                     </div>
                     <p id="oldest-video" hidden>{{ relVidsIDs[2] }}</p>
                 </div>
-                <div class="col-xs-12 well col-sm-12 well col-md-12 well">
+                <div class="col-xs-12 well col-sm-12 well col-md-12 well audience-panel">
                     <i class="eye icon"></i>
-                    {{ relVids['video3'][2] }}
+                    <span>{{ "{:,}".format(relVids['video3'][2]) }}</span>
                     <i class="thumbs up outline icon"></i>
-                    {{ relVids['video3'][3] }}
+                    <span>{{ "{:,}".format(relVids['video3'][3]) }}</span>
                 </div> 
             </div>
             </div>

@@ -79,8 +79,16 @@ def result():
     #"""
 
     # API disconnected mode: ON
-    #channelDetails = (1, 2, 3, 4, 5, 6, 7, 8, 10)
-    #return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelDetails, relevantVideos=relVids)
+    """
+    channelDetails = (1, 2, 3, 4, 5, 6, 7, 8, 10)
+    relVids = {
+    'video1': [10, 20, 30, 34, 43],
+    'video2': [5, 15, 25, 34, 43],
+    'video3': [12, 13, 14, 34, 43]
+    }
+    relVidsIDs = ('ATvQ8amYmlY', 'SjH-ekROz6E', 'tqzVth8UKCk')
+    return render_template('result.html', URL=URL, channel_id=channel_id, channelDetails=channelDetails, relVids=relVids, relVidsIDs=relVidsIDs)
+    """
 
 if __name__ == '__main__':
     app.run(debug=True)
