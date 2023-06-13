@@ -373,7 +373,7 @@ def get_latestvids_dataframe(service: Resource, playlistID: str) -> pd.DataFrame
 
     Returns:
         pd.DataFrame: A pandas DataFrame containing the details of the latest videos.
-                      The DataFrame has columns for 'Title', 'Duration', and 'Likes'.
+                      The DataFrame has columns for 'Title', 'Duration', 'Likes', and 'videoID'.
     """
 
     videoIDs = get_latest_vids_ids(service, playlistID)
@@ -381,31 +381,14 @@ def get_latestvids_dataframe(service: Resource, playlistID: str) -> pd.DataFrame
 
     for videoID in videoIDs:
         videoDetails = get_video_details(service, videoID, lightMode=True)
+        videoDetails = list(videoDetails) + [videoID]  # Add videoID to the videoDetails list
         videosData.append(videoDetails)
 
-    dataFrame = pd.DataFrame(videosData, columns=['Title', 'Duration', 'Likes'])
+    columns = ['Title', 'Duration', 'Likes', 'ID']
+    dataFrame = pd.DataFrame(videosData, columns=columns)
 
     return dataFrame
 
-
-def iso8601_to_min(durationStr: str) -> float:
-    """
-    Converts an ISO 8601 duration string to minutes.
-
-    Args:
-        durationStr (str): The duration string in ISO 8601 format.
-
-    Returns:
-        float: The duration in minutes.
-
-    Example:
-        >>> iso8601_to_min('PT1H30M')
-        90.0
-        >>> iso8601_to_min('P3DT2H30M')
-        4380.0
-    """
-
-    return parse_duration(durationStr).total_seconds() / 60
 
 def sort_df_by_duration(dataFrame: pd.DataFrame, descending: bool=True, sample: int = 20) -> pd.DataFrame:
     """
@@ -422,12 +405,12 @@ def sort_df_by_duration(dataFrame: pd.DataFrame, descending: bool=True, sample: 
     Returns:
         pd.DataFrame: The sorted DataFrame with a specified sample size.
     """
-    dataFrame['Duration (min)'] = dataFrame['Duration'].apply(iso8601_to_min)
+    dataFrame['Video Duration'] = dataFrame['Duration'].apply(parse_duration)
     
     if descending:
-        return dataFrame.sort_values(by='Duration (min)', ascending=False).head(sample) # Sorted data frame (descending)
+        return dataFrame.sort_values(by='Video Duration', ascending=False).head(sample).drop('Duration', axis=1) # Sorted data frame (descending)
 
-    return dataFrame.sort_values(by='Duration (min)', ascending=True).head(sample) # Sorted data frame (ascending)
+    return dataFrame.sort_values(by='Video Duration', ascending=True).head(sample).drop('Duration', axis=1) # Sorted data frame (ascending)
 
 
 def sort_df_by_likes(dataFrame: pd.DataFrame, descending: bool=True, sample: int = 20) -> pd.DataFrame:
@@ -450,6 +433,12 @@ def sort_df_by_likes(dataFrame: pd.DataFrame, descending: bool=True, sample: int
         return dataFrame.sort_values(by='Likes', ascending=False).head(sample) # Sorted data frame (descending)
 
     return dataFrame.sort_values(by='Likes', ascending=True).head(sample) # Sorted data frame (ascending)
+
+def generate_html_link(row):
+    video_id = row['ID']
+    title = row['Title']
+    link = f'<a href="https://www.youtube.com/watch?v={video_id}">{title}</a>'
+    return link
 
 # ARCHIVE
 
